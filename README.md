@@ -70,7 +70,7 @@
 ### 1. Clone
 
 ```bash
-git clone <your-repo-url>
+git clone  https://github.com/jahangeer-dev/futureblink_ai.git
 cd futureblink-ai-flow
 ```
 
