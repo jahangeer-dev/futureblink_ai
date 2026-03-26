@@ -36,6 +36,7 @@ class App {
         this.initializeSocketIO();
         this.initializeErrorHandling();
         this.listen();
+        this.handleProcessSignals()
     }
 
     private async initializeDependencies(): Promise<void> {
