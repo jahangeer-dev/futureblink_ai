@@ -10,11 +10,7 @@ export default defineConfig({
       '/api': {
         target: 'http://3.95.59.74:5000',
         changeOrigin: true,
-      },
-      '/socket.io': {
-        target: 'http://3.95.59.74:5000',
-        ws: true,
-      },
+      }
     },
   },
 });

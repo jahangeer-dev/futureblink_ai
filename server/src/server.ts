@@ -44,29 +44,18 @@ class App {
     }
 
     private initializeMiddlewares(): void {
+        // Read from CLIENT_URL and split by comma if multiple origins are needed
+        const allowedOrigins = process.env.CLIENT_URL 
+            ? process.env.CLIENT_URL.split(',').map(url => url.trim()) 
+            : ['http://localhost:5173'];
+console.log(allowedOrigins);
+
         const corsOptions = {
-            origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
-                // Allow requests with no origin (like mobile apps, curl, Postman)
-                if (!origin) return callback(null, true);
-                
-                const allowedOrigins = [
-                    'http://localhost:5173',
-                    'http://3.95.59.74:5173',
-                    'http://3.95.59.74:5000',
-                    process.env.CLIENT_URL || 'http://localhost:5173'
-                ];
-                
-                if (allowedOrigins.includes(origin)) {
-                    callback(null, true);
-                } else {
-                    callback(new Error('Not allowed by CORS'));
-                }
-            },
+            origin: allowedOrigins,
             credentials: true,
             methods: ['GET', 'POST', 'PUT', 'DELETE'],
-            allowedHeaders: ['Content-Type', 'Authorization']
         };
-
+        
         this.app.use(cors(corsOptions));
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.json({ limit: '10mb' }));
@@ -83,8 +72,7 @@ class App {
     private initializeErrorHandling(): void {
         this.app.use(errorHandler.handle);
     }
-
-    private listen(): void {
+  private listen(): void {
         const port = Number(process.env.PORT) || 5000;
         const host='0.0.0.0';
         this.httpServer.listen(port, host, () => {

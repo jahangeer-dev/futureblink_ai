@@ -10,8 +10,18 @@ export function useAiStream() {
     const setStreamingStart = useFlowStore((s) => s.setStreamingStart);
 
     useEffect(() => {
+        // If VITE_API_URL is provided, connect to it directly (both in local dev and prod).
+        // Otherwise fallback to local backend.
         const url = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-        const socket = io(url, { transports: ['websocket', 'polling'] });
+        
+        // Remove trailing slash if any, to ensure clean paths
+        const cleanUrl = url.replace(/\/$/, '');
+
+        // Provide explicit path to Socket.IO and allow cross-origin
+        const socket = io(cleanUrl, { 
+            transports: ['websocket', 'polling'],
+            withCredentials: true // match the backend's cors settings
+        });
         socketRef.current = socket;
 
         socket.on('connect', () => {
