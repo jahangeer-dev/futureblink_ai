@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: futureblink-ai-flow-api
+    runtime: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGODB_URI
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: OPENROUTER_MODEL
+        value: google/gemini-2.0-flash-lite-preview-02-05:free
+      - key: CLIENT_URL
+        sync: false
+      - key: APP_URL
+        sync: false

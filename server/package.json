@@ -1,0 +1,32 @@
+{
+  "name": "futureblink-ai-flow-server",
+  "version": "1.0.0",
+  "description": "AI Flow backend — Express + MongoDB + Socket.IO + OpenRouter",
+  "main": "dist/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "keywords": [],
+  "author": "jahangeer-dev",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.8.4",
+    "chalk": "^5.6.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.13.2",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.1",
+    "nodemon": "^3.1.9",
+    "tsx": "^4.17.0",
+    "typescript": "^5.8.3"
+  }
+}
