@@ -12,6 +12,7 @@ import { useFlowStore } from '../stores/useFlowStore';
 import { InputNode } from './nodes/InputNode';
 import { ResultNode } from './nodes/ResultNode';
 import { Toolbar } from './Toolbar';
+import { ConversationsSidebar } from './ConversationsSidebar';
 
 export function FlowCanvas() {
     const nodes = useFlowStore((s) => s.nodes);
@@ -25,7 +26,7 @@ export function FlowCanvas() {
     }), []);
 
     return (
-        <div className="w-full h-full flex flex-col bg-bg-primary">
+        <div className="w-full h-full flex flex-col bg-bg-primary relative">
             <Toolbar />
             <div className="flex-1 w-full">
                 <ReactFlow
@@ -53,6 +54,8 @@ export function FlowCanvas() {
                     />
                 </ReactFlow>
             </div>
+            
+            <ConversationsSidebar />
         </div>
     );
 }

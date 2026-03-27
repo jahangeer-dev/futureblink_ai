@@ -1,6 +1,5 @@
 import { useFlowStore } from '../stores/useFlowStore';
 import { useAiStream } from '../hooks/useAiStream';
-import { ConversationsSidebar } from './ConversationsSidebar';
 
 export function Toolbar() {
     const prompt = useFlowStore((s) => s.prompt);
@@ -126,8 +125,6 @@ export function Toolbar() {
                     <span>✅ Saved to MongoDB</span>
                 </div>
             )}
-
-            <ConversationsSidebar />
         </div>
     );
 }

@@ -51,8 +51,9 @@
 
 - **🔗 REST API** — `POST /api/ask-ai` for AI completions via NVIDIA NIM capabilities
 - **📡 WebSocket Streaming** — Real-time token streaming with Socket.IO
-- **💾 MongoDB Persistence** — Save and retrieve conversations
+- **💾 MongoDB Persistence** — Save and retrieve past conversations dynamically
 - **⚡ React Flow** — Draggable visual node graph with animated edges
+- **💬 Conversations Sidebar** — View and load past prompts and responses instantly via Zustand store logic
 - **🎨 Dark Theme** — Hand-crafted CSS with indigo accents, smooth animations
 - **🐳 AWS Ready** — Included multi-stage optimized `Dockerfile` with non-root user permissions
 - **📋 Developer Experience** — Beautiful, contextual server logging built with `chalk`
@@ -127,6 +128,7 @@ cd server
 docker build -t futureblink-ai-api .
 docker run -p 5000:5000 --env-file .env futureblink-ai-api
 ```
+
 
 ### Render.com (Alternative)
 
