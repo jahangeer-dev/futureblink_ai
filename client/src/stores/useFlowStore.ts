@@ -22,6 +22,17 @@ interface FlowState {
     error: string | null;
     saveSuccess: boolean;
 
+    conversations: Array<{
+        id: string;
+        prompt: string;
+        response: string;
+        model: string;
+        createdAt: string;
+        updatedAt: string;
+    }>;
+    isConversationsLoading: boolean;
+    isConversationsOpen: boolean;
+
     setPrompt: (prompt: string) => void;
     onNodesChange: (changes: NodeChange[]) => void;
     onEdgesChange: (changes: EdgeChange[]) => void;
@@ -31,6 +42,9 @@ interface FlowState {
     setStreamingComplete: () => void;
     setStreamingStart: () => void;
     clearError: () => void;
+    
+    fetchConversations: () => Promise<void>;
+    toggleConversationsOpen: () => void;
 }
 
 const initialNodes: Node[] = [
@@ -68,6 +82,10 @@ export const useFlowStore = create<FlowState>((set, get) => ({
     isStreaming: false,
     error: null,
     saveSuccess: false,
+    
+    conversations: [],
+    isConversationsLoading: false,
+    isConversationsOpen: false,
 
     setPrompt: (prompt: string) => set({ prompt }),
 
@@ -123,4 +141,24 @@ export const useFlowStore = create<FlowState>((set, get) => ({
     setStreamingStart: () => set({ isStreaming: true, response: '', error: null, saveSuccess: false }),
 
     clearError: () => set({ error: null }),
+
+    fetchConversations: async () => {
+        set({ isConversationsLoading: true, error: null });
+        try {
+            const result = await apiClient.getConversations();
+            set({ conversations: result.data, isConversationsLoading: false });
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : 'Failed to fetch conversations';
+            set({ error: message, isConversationsLoading: false });
+        }
+    },
+
+    toggleConversationsOpen: () => {
+        const state = get();
+        const willOpen = !state.isConversationsOpen;
+        if (willOpen && state.conversations.length === 0) {
+            get().fetchConversations();
+        }
+        set({ isConversationsOpen: willOpen });
+    },
 }));

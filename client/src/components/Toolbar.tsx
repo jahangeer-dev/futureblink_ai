@@ -1,5 +1,6 @@
 import { useFlowStore } from '../stores/useFlowStore';
 import { useAiStream } from '../hooks/useAiStream';
+import { ConversationsSidebar } from './ConversationsSidebar';
 
 export function Toolbar() {
     const prompt = useFlowStore((s) => s.prompt);
@@ -12,6 +13,7 @@ export function Toolbar() {
     const runFlow = useFlowStore((s) => s.runFlow);
     const saveConversation = useFlowStore((s) => s.saveConversation);
     const clearError = useFlowStore((s) => s.clearError);
+    const toggleConversationsOpen = useFlowStore((s) => s.toggleConversationsOpen);
 
     const { streamPrompt } = useAiStream();
 
@@ -47,6 +49,14 @@ export function Toolbar() {
 
             {/* Actions */}
             <div className="flex items-center gap-5">
+                <button
+                    className="text-sm font-semibold text-[#c4b5fd] bg-transparent border border-[#2a2a40] rounded-xl transition-all duration-200 hover:bg-[#1a1a2e] hover:border-[#3a3a55] hover:-translate-y-0.5"
+                    style={{ padding: '12px 20px' }}
+                    onClick={toggleConversationsOpen}
+                >
+                    💬 Convos
+                </button>
+
                 <button
                     id="stream-btn"
                     className="text-sm font-semibold text-[#c4b5fd] bg-[#7c3aed]/10 border border-[#7c3aed]/30 rounded-xl transition-all duration-200 hover:bg-[#7c3aed]/20 hover:border-[#7c3aed]/50 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(124,58,237,0.15)] disabled:opacity-40 disabled:cursor-not-allowed disabled:!translate-y-0"
@@ -116,6 +126,8 @@ export function Toolbar() {
                     <span>✅ Saved to MongoDB</span>
                 </div>
             )}
+
+            <ConversationsSidebar />
         </div>
     );
 }
