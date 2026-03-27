@@ -44,18 +44,16 @@ class App {
     }
 
     private initializeMiddlewares(): void {
-        // Read from CLIENT_URL and split by comma if multiple origins are needed
-        const allowedOrigins = process.env.CLIENT_URL 
-            ? process.env.CLIENT_URL.split(',').map(url => url.trim()) 
+        const allowedOrigins = process.env.CLIENT_URL
+            ? process.env.CLIENT_URL.split(',').map(url => url.trim())
             : ['http://localhost:5173'];
-console.log(allowedOrigins);
 
         const corsOptions = {
             origin: allowedOrigins,
             credentials: true,
             methods: ['GET', 'POST', 'PUT', 'DELETE'],
         };
-        
+
         this.app.use(cors(corsOptions));
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.json({ limit: '10mb' }));
@@ -72,9 +70,9 @@ console.log(allowedOrigins);
     private initializeErrorHandling(): void {
         this.app.use(errorHandler.handle);
     }
-  private listen(): void {
+    private listen(): void {
         const port = Number(process.env.PORT) || 5000;
-        const host='0.0.0.0';
+        const host = '0.0.0.0';
         this.httpServer.listen(port, host, () => {
             logger.info('SERVER', `App is running at ${port}`);
         });

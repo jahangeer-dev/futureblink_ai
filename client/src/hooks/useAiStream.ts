@@ -25,7 +25,6 @@ export function useAiStream() {
         socketRef.current = socket;
 
         socket.on('connect', () => {
-            console.log('🚀 [SOCKET] Connected');
         });
 
         socket.on('ai:stream:chunk', (data: { chunk: string }) => {
@@ -42,7 +41,6 @@ export function useAiStream() {
         });
 
         socket.on('disconnect', () => {
-            console.log('🚀 [SOCKET] Disconnected');
         });
 
         return () => {
